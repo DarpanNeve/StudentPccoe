@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Pccoe</string>
+    <string name="todo">todo</string>
+    <string name="search">Search</string>
+    <string name="day">Day</string>
+    <string name="batch">Batch</string>
+    <string name="division">Division</string>
+    <string name="profile">Profile</string>
+    <string name="timetable">TimeTable</string>
+    <string name="logout">Logout</string>
+    <string name="weekly_timetable">Weekly TimeTable</string>
+    <string name="feedback">Feedback</string>
+    <string name="about">About</string>
+</resources>
