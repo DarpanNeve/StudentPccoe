@@ -46,7 +46,7 @@
                 android:foregroundGravity="center"
                 android:gravity="start"
                 android:includeFontPadding="true"
-                android:minHeight="60dp"
+                android:minHeight="50dp"
                 android:textColor="?attr/colorOnSecondary"
                 android:textSize="30sp" />
 
