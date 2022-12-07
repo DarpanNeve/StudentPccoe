@@ -27,8 +27,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -41,7 +39,7 @@ public class Profile extends Fragment {
     GoogleSignInClient googleSignInClient;
     FirebaseAuth firebaseAuth;
     String email1,name1;
-    String user,url="http://181.215.79.82";
+    String url="http://181.215.79.82";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
