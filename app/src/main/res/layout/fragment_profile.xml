@@ -132,38 +132,10 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/Prn"
+                    android:id="@+id/RollNo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="SYETB127"
-                    android:textSize="20sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp">
-
-                <TextView
-                    android:id="@+id/textView7"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="Semister:"
-                    android:textColor="?attr/colorOnSecondary"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/Prn1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="3 rd"
                     android:textSize="20sp" />
             </LinearLayout>
 
@@ -186,11 +158,10 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/Prn2"
+                    android:id="@+id/Prn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="121b1E127"
                     android:textSize="20sp" />
             </LinearLayout>
 

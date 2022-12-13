@@ -28,13 +28,17 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
 
 public class Profile extends Fragment {
     View view;
-    TextView name,email,heading;
+    TextView name,email,heading,rollno,prn,branch,division;
     ImageView photo;
     GoogleSignInClient googleSignInClient;
     FirebaseAuth firebaseAuth;
@@ -62,6 +66,8 @@ public class Profile extends Fragment {
         photo= requireView().findViewById(R.id.photo);
         name= requireView().findViewById(R.id.name);
         email= requireView().findViewById(R.id.email);
+        prn= requireView().findViewById(R.id.Prn);
+        rollno= requireView().findViewById(R.id.RollNo);
         heading= getActivity().findViewById(R.id.heading);
 
 
@@ -93,15 +99,38 @@ public class Profile extends Fragment {
     }
 
     private void fetchuserdata(String sendemail) {
-        StringRequest request = new StringRequest(Request.Method.POST, url+"/fetch_input.php", new Response.Listener<String>() {
+        StringRequest request = new StringRequest(Request.Method.POST, url+"/fetch_user.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                // on below line passing our response to json object.
+                try {
+                    // on below line passing our response to json object.
+                    JSONArray jsonarray = new JSONArray(response);
+                    JSONObject jsonObject = jsonarray.getJSONObject(0);
+                    // on below line we are checking if the response is null or not.
+                    if (jsonObject.getString("Email") == null) {
+                        // displaying a toast message if we get error
+                        Toast.makeText(getContext(), "Please enter valid id.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        // if we get the data then we are setting it in our text views in below line.
+                        rollno.setText(jsonObject.getString("Roll No"));
+                        prn.setText(jsonObject.getString("Prn"));
+                    }
+                    // on below line we are displaying
+                    // a success toast message.
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+
 
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getContext(), "error", Toast.LENGTH_SHORT).show();
+                name.setText(""+ error);
             }
         }
         ) {
@@ -109,7 +138,7 @@ public class Profile extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> param = new HashMap<>();
-                param.put("Email", sendemail);
+                param.put("Email",sendemail);
                 return param;
             }
         };

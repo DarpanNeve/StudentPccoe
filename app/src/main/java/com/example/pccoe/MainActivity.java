@@ -83,6 +83,10 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(new Intent(Intent.ACTION_VIEW,
                                 Uri.parse("https://forms.gle/QYpzZLkCHiLoC6E46")));
                         break;
+                    case R.id.Notice:
+                        Intent myIntent = new Intent(MainActivity.this, NoticeActivity.class);
+                        MainActivity.this.startActivity(myIntent);
+                        break;
                     case R.id.logout1:
                         drawer.closeDrawer(GravityCompat.START);
                         signout();
