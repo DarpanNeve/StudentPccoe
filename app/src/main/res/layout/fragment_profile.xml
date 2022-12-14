@@ -72,7 +72,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
-                    android:text="Name:"
+                    android:text="@string/name"
                     android:textColor="?attr/colorOnSecondary"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -99,7 +99,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
-                    android:text="Email:"
+                    android:text="@string/email"
                     android:textColor="?attr/colorOnSecondary"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -126,7 +126,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
-                    android:text="Roll No:"
+                    android:text="@string/roll_no"
                     android:textColor="?attr/colorOnSecondary"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -148,17 +148,69 @@
                 android:paddingEnd="10dp">
 
                 <TextView
-                    android:id="@+id/textView8"
+                    android:id="@+id/textView7"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
-                    android:text="PRN:"
+                    android:text="@string/prn"
                     android:textColor="?attr/colorOnSecondary"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/Prn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp">
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:text="@string/division"
+                    android:textColor="?attr/colorOnSecondary"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/Division"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp">
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:text="Branch"
+                    android:textColor="?attr/colorOnSecondary"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/Branch"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

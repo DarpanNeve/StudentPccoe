@@ -68,8 +68,9 @@ public class Profile extends Fragment {
         email= requireView().findViewById(R.id.email);
         prn= requireView().findViewById(R.id.Prn);
         rollno= requireView().findViewById(R.id.RollNo);
-        heading= getActivity().findViewById(R.id.heading);
-
+        heading= requireView().findViewById(R.id.heading);
+        branch= requireView().findViewById(R.id.Branch);
+        division= requireView().findViewById(R.id.Division);
 
         // Initialize firebase auth
         firebaseAuth=FirebaseAuth.getInstance();
@@ -110,27 +111,24 @@ public class Profile extends Fragment {
                     // on below line we are checking if the response is null or not.
                     if (jsonObject.getString("Email") == null) {
                         // displaying a toast message if we get error
-                        Toast.makeText(getContext(), "Please enter valid id.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "No Account Found", Toast.LENGTH_SHORT).show();
                     } else {
                         // if we get the data then we are setting it in our text views in below line.
                         rollno.setText(jsonObject.getString("Roll No"));
                         prn.setText(jsonObject.getString("Prn"));
+                        division.setText(jsonObject.getString("Division"));
+                        branch.setText(jsonObject.getString("Branch"));
                     }
                     // on below line we are displaying
                     // a success toast message.
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-
-
-
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getContext(), "error", Toast.LENGTH_SHORT).show();
-                name.setText(""+ error);
             }
         }
         ) {

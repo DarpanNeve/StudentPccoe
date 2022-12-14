@@ -27,6 +27,7 @@ import com.google.gson.GsonBuilder;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class DailyTimeTable extends Fragment {
     View view;
@@ -56,17 +57,17 @@ public class DailyTimeTable extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         //To select the data to enter in recyclerview
         Spinner Day = requireView().findViewById(R.id.Day);
-        Spinner Batch = getView().findViewById(R.id.batch);
-        Spinner Division = getView().findViewById(R.id.Division);
+        Spinner Batch = requireView().findViewById(R.id.batch);
+        Spinner Division = requireView().findViewById(R.id.Division);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, day);
         Day.setAdapter(adapter);
         ArrayAdapter<String> adapter1 = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, batch);
         Batch.setAdapter(adapter1);
         ArrayAdapter<String> adapter2 = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, division);
         Division.setAdapter(adapter2);
-        timetable=getView().findViewById(R.id.timetable);
+        timetable=requireView().findViewById(R.id.timetable);
         timetable.setLayoutManager(new LinearLayoutManager(getContext()));
-        Search = getView().findViewById(R.id.search);
+        Search = requireView().findViewById(R.id.search);
 
         Search.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,7 +109,7 @@ public class DailyTimeTable extends Fragment {
                         return param;
                     }
                 };
-                RequestQueue queue= Volley.newRequestQueue(getContext());
+                RequestQueue queue= Volley.newRequestQueue(requireContext());
                 queue.add(request);
             }
         });

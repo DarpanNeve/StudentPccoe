@@ -50,7 +50,6 @@
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:contentDescription="@string/todo"
-            app:srcCompat="@drawable/ic_launcher_foreground"
             tools:ignore="ImageContrastCheck" />
 
     </LinearLayout>
