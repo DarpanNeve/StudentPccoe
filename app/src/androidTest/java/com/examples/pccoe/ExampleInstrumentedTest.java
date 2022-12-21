@@ -1,4 +1,4 @@
-package com.example.pccoe;
+package com.examples.pccoe;
 
 import android.content.Context;
 

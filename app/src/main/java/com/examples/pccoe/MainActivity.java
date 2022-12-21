@@ -1,4 +1,4 @@
-package com.example.pccoe;
+package com.examples.pccoe;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -19,6 +19,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
+import com.examples.pccoe.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -82,10 +83,6 @@ public class MainActivity extends AppCompatActivity {
                         drawer.closeDrawer(GravityCompat.START);
                         startActivity(new Intent(Intent.ACTION_VIEW,
                                 Uri.parse("https://forms.gle/QYpzZLkCHiLoC6E46")));
-                        break;
-                    case R.id.Notice:
-                        Intent myIntent = new Intent(MainActivity.this, NoticeActivity.class);
-                        MainActivity.this.startActivity(myIntent);
                         break;
                     case R.id.logout1:
                         drawer.closeDrawer(GravityCompat.START);

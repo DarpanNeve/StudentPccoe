@@ -1,4 +1,4 @@
-package com.example.pccoe;
+package com.examples.pccoe;
 
 public class MainModel {
     String Classroom,Division,Subject,Teacher,Type;

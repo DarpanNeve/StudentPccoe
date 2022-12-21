@@ -45,18 +45,18 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:873112653322:android:eb470f1804bb36bb8499f3",
+        "mobilesdk_app_id": "1:873112653322:android:d2071a812217ba3b8499f3",
         "android_client_info": {
-          "package_name": "com.example.pccoe"
+          "package_name": "com.example.pccoefinal"
         }
       },
       "oauth_client": [
         {
-          "client_id": "873112653322-mlvu1m26jhe2h3u1rpj8rrov875h7quj.apps.googleusercontent.com",
+          "client_id": "873112653322-ds9j96bukceglbu14st589aq2s4vt6dv.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.pccoe",
-            "certificate_hash": "066c7ec89f230d87e5d3b50b7a0f605aed2bdc2d"
+            "package_name": "com.example.pccoefinal",
+            "certificate_hash": "1a532498c8a862b5e24634042bc7de3c8f92623f"
           }
         },
         {
@@ -82,18 +82,18 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:873112653322:android:d2071a812217ba3b8499f3",
+        "mobilesdk_app_id": "1:873112653322:android:49b5036bcb01259c8499f3",
         "android_client_info": {
-          "package_name": "com.example.pccoefinal"
+          "package_name": "com.examples.pccoe"
         }
       },
       "oauth_client": [
         {
-          "client_id": "873112653322-ds9j96bukceglbu14st589aq2s4vt6dv.apps.googleusercontent.com",
+          "client_id": "873112653322-3gaq08g9nh0jl0r30vpn528dhcqic6rg.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.pccoefinal",
-            "certificate_hash": "1a532498c8a862b5e24634042bc7de3c8f92623f"
+            "package_name": "com.examples.pccoe",
+            "certificate_hash": "066c7ec89f230d87e5d3b50b7a0f605aed2bdc2d"
           }
         },
         {

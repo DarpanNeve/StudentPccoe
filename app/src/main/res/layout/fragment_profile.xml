@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_marginLeft="15dp"
     android:layout_marginRight="15dp"
-    tools:context=".Profile">
+    tools:context="com.examples.pccoe.Profile">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
