@@ -27,7 +27,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
-    ImageView logout,logo,sidephoto;
+    ImageView logout,logo,sidephoto,sidebar;
     GoogleSignInClient googleSignInClient;
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
@@ -51,12 +51,16 @@ public class MainActivity extends AppCompatActivity {
         replaceFragment(new Profile());
         navbar=findViewById(R.id.navbar);
         drawer=findViewById(R.id.drawer);
+
         View header = navbar.getHeaderView(0);
         logout=findViewById(R.id.logout);
         heading=findViewById(R.id.heading);
         logo=findViewById(R.id.logo);
         sidephoto=header.findViewById(R.id.sidephoto);
         sidename=header.findViewById(R.id.sidename);
+        sidebar=findViewById(R.id.sidebar);
+        sidebar.setOnClickListener(v -> drawer.openDrawer(GravityCompat.START));
+
         navbar.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @SuppressLint("NonConstantResourceId")
             @Override

@@ -26,6 +26,14 @@
             android:paddingTop="10dp">
 
             <ImageView
+                android:id="@+id/sidebar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                app:srcCompat="@android:drawable/ic_menu_sort_by_size"
+                android:contentDescription="@string/todo" />
+
+            <ImageView
                 android:id="@+id/logo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
