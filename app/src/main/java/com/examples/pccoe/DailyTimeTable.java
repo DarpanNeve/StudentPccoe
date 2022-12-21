@@ -15,14 +15,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.examples.pccoe.R;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -69,49 +65,38 @@ public class DailyTimeTable extends Fragment {
         timetable.setLayoutManager(new LinearLayoutManager(getContext()));
         Search = requireView().findViewById(R.id.search);
 
-        Search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String selectday = Day.getSelectedItem().toString();
-                String selectdivision = Division.getSelectedItem().toString();
-                String selectbatch = Batch.getSelectedItem().toString();
-                StringRequest request = new StringRequest(Request.Method.POST, url+"/fetch_input.php", new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        GsonBuilder builder=new GsonBuilder();
-                        Gson gson= builder.create();
-                        data =gson.fromJson(response,MainModel[].class);
-                        user= gson.toJson(data);
-                        if(user.length()!=2) {
-                            DailyDataAdapter adapters = new DailyDataAdapter(data);
-                            timetable.setAdapter(adapters);
-                            Toast.makeText(getContext(), "successful", Toast.LENGTH_SHORT).show();
-                        }
-                        else{
-                            Toast.makeText(getContext(), "No Response Found", Toast.LENGTH_SHORT).show();
-
-                        }
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getContext(), "error", Toast.LENGTH_SHORT).show();
-                    }
+        Search.setOnClickListener(v -> {
+            String selectday = Day.getSelectedItem().toString();
+            String selectdivision = Division.getSelectedItem().toString();
+            String selectbatch = Batch.getSelectedItem().toString();
+            StringRequest request = new StringRequest(Request.Method.POST, url+"/fetch_input.php", response -> {
+                GsonBuilder builder=new GsonBuilder();
+                Gson gson= builder.create();
+                data =gson.fromJson(response,MainModel[].class);
+                user= gson.toJson(data);
+                if(user.length()!=2) {
+                    DailyDataAdapter adapters = new DailyDataAdapter(data);
+                    timetable.setAdapter(adapters);
+                    Toast.makeText(getContext(), "successful", Toast.LENGTH_SHORT).show();
                 }
-                ) {
-                    @Nullable
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String, String> param = new HashMap<>();
-                        param.put("Day", selectday);
-                        param.put("Division", selectdivision);
-                        param.put("Batch", selectbatch);
-                        return param;
-                    }
-                };
-                RequestQueue queue= Volley.newRequestQueue(requireContext());
-                queue.add(request);
-            }
+                else{
+                    Toast.makeText(getContext(), "No Response Found", Toast.LENGTH_SHORT).show();
+
+                }
+            }, error -> Toast.makeText(getContext(), "error", Toast.LENGTH_SHORT).show()
+            ) {
+                @NonNull
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> param = new HashMap<>();
+                    param.put("Day", selectday);
+                    param.put("Division", selectdivision);
+                    param.put("Batch", selectbatch);
+                    return param;
+                }
+            };
+            RequestQueue queue= Volley.newRequestQueue(requireContext());
+            queue.add(request);
         });
 
 

@@ -19,12 +19,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
-import com.examples.pccoe.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -102,33 +99,22 @@ public class MainActivity extends AppCompatActivity {
             // set name on text view
             sidename.setText(firebaseUser.getDisplayName());
         }
-        logo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                drawer.openDrawer(GravityCompat.START);
-            }
-        });
+        logo.setOnClickListener(v -> drawer.openDrawer(GravityCompat.START));
 
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Sign out from google
-                signout();
-                toast("Signout successful");
-            }
+        logout.setOnClickListener(view -> {
+            // Sign out from google
+            signout();
+            toast("Signout successful");
         });
     }
     private void signout() {
-        googleSignInClient.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful())
-                {
-                    firebaseAuth.signOut();
-                    Intent myIntent = new Intent(MainActivity.this, LoginActivity.class);
-                    MainActivity.this.startActivity(myIntent);
-                    finish();
-                }
+        googleSignInClient.signOut().addOnCompleteListener(task -> {
+            if(task.isSuccessful())
+            {
+                firebaseAuth.signOut();
+                Intent myIntent = new Intent(MainActivity.this, LoginActivity.class);
+                MainActivity.this.startActivity(myIntent);
+                finish();
             }
         });
     }

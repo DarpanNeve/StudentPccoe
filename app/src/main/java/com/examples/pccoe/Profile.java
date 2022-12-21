@@ -22,7 +22,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
-import com.examples.pccoe.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -87,6 +86,7 @@ public class Profile extends Fragment {
 
             email.setText(firebaseUser.getEmail());
             email1=firebaseUser.getEmail();
+            assert email1 != null;
             name1=email1.replace("."," ");
             name1=name1.replace("@pccoepune org","");
             name1 = name1.replaceAll("[0-9]","");
