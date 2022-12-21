@@ -17,4 +17,8 @@
     <string name="email">Email:</string>
     <string name="roll_no">Roll No:</string>
     <string name="prn">PRN:</string>
+    <string name="time_table">Time Table :</string>
+    <string name="lectures">Lectures</string>
+    <string name="time">Time</string>
+    <string name="branch">Branch</string>
 </resources>
