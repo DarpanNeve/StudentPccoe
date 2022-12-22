@@ -97,6 +97,14 @@
           }
         },
         {
+          "client_id": "873112653322-ms38nt0oj9avgcvulqoj8pvvscauempr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.examples.pccoe",
+            "certificate_hash": "daa90797a3b6d03a18f14605444a456667df62fc"
+          }
+        },
+        {
           "client_id": "873112653322-asbm6uhvint6h7n5tnkuh8bijmv13cvd.apps.googleusercontent.com",
           "client_type": 3
         }
