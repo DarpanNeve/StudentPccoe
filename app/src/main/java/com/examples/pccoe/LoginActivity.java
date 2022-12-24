@@ -28,6 +28,7 @@ public class LoginActivity extends AppCompatActivity {
     GoogleSignInOptions googleSignInOptions;
     FirebaseUser firebaseUser;
     ImageView logo;
+    String email;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,8 +45,6 @@ public class LoginActivity extends AppCompatActivity {
         firebaseUser=firebaseAuth.getCurrentUser();
         if(firebaseUser!=null)
         {
-            // When user already sign in
-            // redirect to profile activity
             startActivity(new Intent(LoginActivity.this, MainActivity.class)
                     .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
             finish();

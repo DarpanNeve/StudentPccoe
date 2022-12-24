@@ -1,5 +1,6 @@
 package com.examples.pccoe;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +28,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -91,6 +94,7 @@ public class Profile extends Fragment {
             name1=name1.replace("@pccoepune org","");
             name1 = name1.replaceAll("[0-9]","");
             name.setText(name1);
+
         }
         // Initialize sign in client
         googleSignInClient= GoogleSignIn.getClient(requireContext(), GoogleSignInOptions.DEFAULT_SIGN_IN);
@@ -109,26 +113,23 @@ public class Profile extends Fragment {
                     // on below line passing our response to json object.
                     JSONArray jsonarray = new JSONArray(response);
                     JSONObject jsonObject = jsonarray.getJSONObject(0);
-                    // on below line we are checking if the response is null or not.
-                    if (jsonObject.getString("Email") == null) {
-                        // displaying a toast message if we get error
-                        Toast.makeText(getContext(), "No Account Found", Toast.LENGTH_SHORT).show();
-                    } else {
-                        // if we get the data then we are setting it in our text views in below line.
-                        rollno.setText(jsonObject.getString("Roll No"));
-                        prn.setText(jsonObject.getString("Prn"));
-                        division.setText(jsonObject.getString("Division"));
-                        branch.setText(jsonObject.getString("Branch"));
-                    }
+                    // if we get the data then we are setting it in our text views in below line.
+                    rollno.setText(jsonObject.getString("Roll No"));
+                    prn.setText(jsonObject.getString("Prn"));
+                    division.setText(jsonObject.getString("Division"));
+                    branch.setText(jsonObject.getString("Branch"));
                     // on below line we are displaying
                     // a success toast message.
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    signout();
+                    Toast.makeText(getContext(), "No Account Found", Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                signout();
                 Toast.makeText(getContext(), "error", Toast.LENGTH_SHORT).show();
             }
         }
@@ -150,6 +151,17 @@ public class Profile extends Fragment {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frameLayout2, fragment);
         fragmentTransaction.commit();
+    }
+    private void signout() {
+        googleSignInClient.signOut().addOnCompleteListener(task -> {
+            if(task.isSuccessful())
+            {
+                firebaseAuth.signOut();
+                Intent myIntent = new Intent(getContext(), LoginActivity.class);
+                startActivity(myIntent);
+                getActivity().finish();
+            }
+        });
     }
 
 
