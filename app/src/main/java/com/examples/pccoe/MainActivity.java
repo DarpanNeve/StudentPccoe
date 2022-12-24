@@ -75,6 +75,10 @@ public class MainActivity extends AppCompatActivity {
                         replaceFragment(new DailyTimeTable());
                         drawer.closeDrawer(GravityCompat.START);
                         break;
+                    case R.id.notice:
+                        replaceFragment(new NoticeFragment());
+                        drawer.closeDrawer(GravityCompat.START);
+                        break;
                     case R.id.about:
                         drawer.closeDrawer(GravityCompat.START);
                         startActivity(new Intent(Intent.ACTION_VIEW,
