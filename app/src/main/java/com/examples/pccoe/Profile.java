@@ -46,7 +46,7 @@ public class Profile extends Fragment {
     GoogleSignInClient googleSignInClient;
     FirebaseAuth firebaseAuth;
     String email1,name1;
-    String url="http://181.215.79.82";
+    private String url="http://181.215.79.82";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -86,7 +86,6 @@ public class Profile extends Fragment {
             // Set image on image view
             Glide.with(requireContext()).load(firebaseUser.getPhotoUrl()).circleCrop().into(photo);
             // set name on text view
-
             email.setText(firebaseUser.getEmail());
             email1=firebaseUser.getEmail();
             assert email1 != null;
@@ -98,71 +97,18 @@ public class Profile extends Fragment {
         }
         // Initialize sign in client
         googleSignInClient= GoogleSignIn.getClient(requireContext(), GoogleSignInOptions.DEFAULT_SIGN_IN);
-        fetchuserdata(email1);
+        rollno.setText(getActivity().getIntent().getStringExtra("rollno"));
+        prn.setText(getActivity().getIntent().getStringExtra("prn"));
+        division.setText(getActivity().getIntent().getStringExtra("division"));
+        branch.setText(getActivity().getIntent().getStringExtra("branch"));
 
 
 
     }
 
-    private void fetchuserdata(String sendemail) {
-        StringRequest request = new StringRequest(Request.Method.POST, url+"/fetch_user.php", new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                // on below line passing our response to json object.
-                try {
-                    // on below line passing our response to json object.
-                    JSONArray jsonarray = new JSONArray(response);
-                    JSONObject jsonObject = jsonarray.getJSONObject(0);
-                    // if we get the data then we are setting it in our text views in below line.
-                    rollno.setText(jsonObject.getString("Roll No"));
-                    prn.setText(jsonObject.getString("Prn"));
-                    division.setText(jsonObject.getString("Division"));
-                    branch.setText(jsonObject.getString("Branch"));
-                    // on below line we are displaying
-                    // a success toast message.
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    signout();
-                    Toast.makeText(getContext(), "No Account Found", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                signout();
-                Toast.makeText(getContext(), "error", Toast.LENGTH_SHORT).show();
-            }
-        }
-        ) {
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> param = new HashMap<>();
-                param.put("Email",sendemail);
-                return param;
-            }
-        };
-        RequestQueue queue= Volley.newRequestQueue(getContext());
-        queue.add(request);
-    }
 
-    private void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frameLayout2, fragment);
-        fragmentTransaction.commit();
-    }
-    private void signout() {
-        googleSignInClient.signOut().addOnCompleteListener(task -> {
-            if(task.isSuccessful())
-            {
-                firebaseAuth.signOut();
-                Intent myIntent = new Intent(getContext(), LoginActivity.class);
-                startActivity(myIntent);
-                getActivity().finish();
-            }
-        });
-    }
+
+
 
 
 

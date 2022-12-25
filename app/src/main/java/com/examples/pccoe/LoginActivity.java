@@ -1,5 +1,7 @@
 package com.examples.pccoe;
 
+import static java.security.AccessController.getContext;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +11,13 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -20,6 +29,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
@@ -28,7 +43,8 @@ public class LoginActivity extends AppCompatActivity {
     GoogleSignInOptions googleSignInOptions;
     FirebaseUser firebaseUser;
     ImageView logo;
-    String email;
+    String email,prn,rollno,branch,division;
+    private String url="http://181.215.79.82";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,9 +61,9 @@ public class LoginActivity extends AppCompatActivity {
         firebaseUser=firebaseAuth.getCurrentUser();
         if(firebaseUser!=null)
         {
-            startActivity(new Intent(LoginActivity.this, MainActivity.class)
-                    .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-            finish();
+            email=firebaseUser.getEmail();
+            requestuserdata(email);
+
         }
         else {
             Intent intent=mGoogleSignInClient.getSignInIntent();
@@ -60,6 +76,9 @@ public class LoginActivity extends AppCompatActivity {
             startActivityForResult(intent,100);
         });
     }
+
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -84,9 +103,23 @@ public class LoginActivity extends AppCompatActivity {
                                     if(task.isSuccessful())
                                     {   // When task is successful
                                         // Redirect to profile activity
-                                        startActivity(new Intent(LoginActivity.this,MainActivity.class)
-                                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-                                        finish();
+                                        FirebaseAuth auth = FirebaseAuth.getInstance();
+                                        firebaseUser = auth.getCurrentUser();
+                                        email = firebaseUser.getEmail();
+                                        if(email.contains("@pccoepune.org")){
+                                            requestuserdata(email);
+                                        }
+                                        else {
+                                            signout();
+                                            firebaseUser.delete();
+                                        //    user.delete();
+                                            Intent intent=mGoogleSignInClient.getSignInIntent();
+                                            // Start activity for result
+                                            startActivityForResult(intent,100);
+                                            toast("Login with college email");
+
+                                        }
+
                                     }
                                     else
                                     {
@@ -106,7 +139,70 @@ public class LoginActivity extends AppCompatActivity {
         }
 
     }
+
+    private void signout() {
+        GoogleSignInClient googleSignInClient= GoogleSignIn.getClient(LoginActivity.this, GoogleSignInOptions.DEFAULT_SIGN_IN);
+        googleSignInClient.signOut().addOnCompleteListener(task -> {
+            if(task.isSuccessful())
+            {
+                firebaseAuth.signOut();
+            }
+        });
+    }
+
     private void toast(String s) {
         Toast.makeText(getApplicationContext(),s,Toast.LENGTH_SHORT).show();
     }
+    private void requestuserdata(String sendemail) {
+        StringRequest request = new StringRequest(Request.Method.POST, url+"/fetch_user.php", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                // on below line passing our response to json object.
+                try {
+                    // on below line passing our response to json object.
+                    JSONArray jsonarray = new JSONArray(response);
+                    JSONObject jsonObject = jsonarray.getJSONObject(0);
+                    rollno=jsonObject.getString("Roll No");
+                    prn=jsonObject.getString("Prn");
+                    division=jsonObject.getString("Division");
+                    branch=jsonObject.getString("Branch");
+                    Intent myIntent = new Intent(LoginActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    myIntent.putExtra("rollno",rollno);
+                    myIntent.putExtra("prn",prn);
+                    myIntent.putExtra("branch",branch);
+                    myIntent.putExtra("division",division);
+                    startActivity(myIntent);
+                    finish();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    signout();
+                    toast("No Account Found");
+                    firebaseUser.delete();
+                    Intent intent=mGoogleSignInClient.getSignInIntent();
+                    // Start activity for result
+                    startActivityForResult(intent,100);
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                signout();
+                toast("error");
+            }
+        }
+        ) {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> param = new HashMap<>();
+                param.put("Email",sendemail);
+                return param;
+            }
+        };
+        RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
+        queue.add(request);
+    }
+
+
 }

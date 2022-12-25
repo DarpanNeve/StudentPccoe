@@ -1,6 +1,4 @@
-package com.examples.pccoe;
-
-import android.annotation.SuppressLint;
+package com.examples.pccoe;import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -31,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
     GoogleSignInClient googleSignInClient;
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
-    String email;
     TextView heading,sidename;
     NavigationView navbar;
     DrawerLayout drawer;
@@ -42,12 +39,8 @@ public class MainActivity extends AppCompatActivity {
         firebaseAuth= FirebaseAuth.getInstance();
         firebaseUser=firebaseAuth.getCurrentUser();
         googleSignInClient= GoogleSignIn.getClient(MainActivity.this, GoogleSignInOptions.DEFAULT_SIGN_IN);
-        email=firebaseUser.getEmail();
-        assert email != null;
-        if(!email.contains("@pccoepune.org")){
-            signout();
-            toast("Login with College ID");
-        }
+
+
         replaceFragment(new Profile());
         navbar=findViewById(R.id.navbar);
         drawer=findViewById(R.id.drawer);

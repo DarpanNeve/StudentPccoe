@@ -18,10 +18,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class NoticeFragment extends Fragment {
-    ImageView logout,logo;
     RecyclerView recyclerView;
     NoticeAdapter NoticeAdapter;
-    DatabaseReference mDatabase;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +36,9 @@ public class NoticeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerView=getView().findViewById(R.id.recyclerView);
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        try {
+            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        } catch (Exception e) {}
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         FirebaseRecyclerOptions<NoticeModel> options
                 = new FirebaseRecyclerOptions.Builder<NoticeModel>()
