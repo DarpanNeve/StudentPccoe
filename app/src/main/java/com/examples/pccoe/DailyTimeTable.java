@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -34,6 +35,7 @@ public class DailyTimeTable extends Fragment {
     Button Search;
     MainModel[] data;
     String user;
+    LinearLayout show;
     private final String url="http://181.215.79.82";
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,6 +66,8 @@ public class DailyTimeTable extends Fragment {
         timetable=requireView().findViewById(R.id.timetable);
         timetable.setLayoutManager(new LinearLayoutManager(getContext()));
         Search = requireView().findViewById(R.id.search);
+        show=requireView().findViewById(R.id.show);
+        show.setVisibility(view.INVISIBLE);
 
         Search.setOnClickListener(v -> {
             String selectday = Day.getSelectedItem().toString();
@@ -78,6 +82,7 @@ public class DailyTimeTable extends Fragment {
                     DailyDataAdapter adapters = new DailyDataAdapter(data);
                     timetable.setAdapter(adapters);
                     Toast.makeText(getContext(), "successful", Toast.LENGTH_SHORT).show();
+                    show.setVisibility(view.VISIBLE);
                 }
                 else{
                     Toast.makeText(getContext(), "No Response Found", Toast.LENGTH_SHORT).show();

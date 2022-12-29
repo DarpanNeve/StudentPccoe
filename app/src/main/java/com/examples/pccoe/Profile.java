@@ -46,7 +46,7 @@ public class Profile extends Fragment {
     GoogleSignInClient googleSignInClient;
     FirebaseAuth firebaseAuth;
     String email1,name1;
-    private String url="http://181.215.79.82";
+    private final String url="http://181.215.79.82";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -92,6 +92,7 @@ public class Profile extends Fragment {
             name1=email1.replace("."," ");
             name1=name1.replace("@pccoepune org","");
             name1 = name1.replaceAll("[0-9]","");
+            name1=name1.toUpperCase();
             name.setText(name1);
 
         }

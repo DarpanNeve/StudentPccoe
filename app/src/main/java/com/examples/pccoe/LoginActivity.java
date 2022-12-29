@@ -44,12 +44,12 @@ public class LoginActivity extends AppCompatActivity {
     FirebaseUser firebaseUser;
     ImageView logo;
     String email,prn,rollno,branch,division;
-    private String url="http://181.215.79.82";
+    private final String url="http://181.215.79.82";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        logo=findViewById(R.id.Pccoe);
+
         firebaseAuth = FirebaseAuth.getInstance();
         googleSignInOptions=new GoogleSignInOptions.Builder(
                 GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -62,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
         if(firebaseUser!=null)
         {
             email=firebaseUser.getEmail();
-            requestuserdata(email);
+            requestuserdata1(email);
 
         }
         else {
@@ -70,11 +70,6 @@ public class LoginActivity extends AppCompatActivity {
             // Start activity for result
             startActivityForResult(intent,100);
         }
-        logo.setOnClickListener(v -> {
-            Intent intent=mGoogleSignInClient.getSignInIntent();
-            // Start activity for result
-            startActivityForResult(intent,100);
-        });
     }
 
 
@@ -189,6 +184,60 @@ public class LoginActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 signout();
                 toast("error");
+            }
+        }
+        ) {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> param = new HashMap<>();
+                param.put("Email",sendemail);
+                return param;
+            }
+        };
+        RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
+        queue.add(request);
+    }
+    private void requestuserdata1(String sendemail) {
+        StringRequest request = new StringRequest(Request.Method.POST, url+"/fetch_user.php", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                // on below line passing our response to json object.
+                try {
+                    // on below line passing our response to json object.
+                    JSONArray jsonarray = new JSONArray(response);
+                    JSONObject jsonObject = jsonarray.getJSONObject(0);
+                    rollno=jsonObject.getString("Roll No");
+                    prn=jsonObject.getString("Prn");
+                    division=jsonObject.getString("Division");
+                    branch=jsonObject.getString("Branch");
+                    Intent myIntent = new Intent(LoginActivity.this, MainActivity.class)
+                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    myIntent.putExtra("rollno",rollno);
+                    myIntent.putExtra("prn",prn);
+                    myIntent.putExtra("branch",branch);
+                    myIntent.putExtra("division",division);
+                    startActivity(myIntent);
+                    finish();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    signout();
+                    toast("No Account Found");
+                    firebaseUser.delete();
+                    Intent intent=mGoogleSignInClient.getSignInIntent();
+                    // Start activity for result
+                    startActivityForResult(intent,100);
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                toast("error");
+                Intent myIntent = new Intent(LoginActivity.this, MainActivity.class)
+                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(myIntent);
+                finish();
             }
         }
         ) {

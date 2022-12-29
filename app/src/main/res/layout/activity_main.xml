@@ -30,19 +30,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
-                app:srcCompat="@android:drawable/ic_menu_sort_by_size"
-                android:contentDescription="@string/todo" />
-
-            <ImageView
-                android:id="@+id/logo"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_weight="2"
                 android:contentDescription="@string/todo"
-                android:foregroundGravity="left"
-                app:srcCompat="@drawable/pccoelogo"
-                tools:ignore="ImageContrastCheck" />
+                app:srcCompat="@drawable/option" />
 
             <TextView
                 android:id="@+id/heading"
@@ -65,7 +54,7 @@
                 android:layout_weight="2"
                 android:contentDescription="@string/todo"
                 app:srcCompat="@drawable/ic_launcher_foreground"
-                tools:ignore="ImageContrastCheck" />
+                />
 
         </LinearLayout>
 
@@ -86,7 +75,8 @@
         android:layout_marginStart="10dp"
         android:background="?attr/colorPrimaryVariant"
         app:headerLayout="@layout/profile_sidebar"
-        app:menu="@menu/iconmenu">
+        app:menu="@menu/iconmenu"
+        >
 
     </com.google.android.material.navigation.NavigationView>
 
