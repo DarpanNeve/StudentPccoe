@@ -64,11 +64,13 @@ public class LoginActivity extends AppCompatActivity {
             email=firebaseUser.getEmail();
             requestuserdata1(email);
 
+
         }
         else {
             Intent intent=mGoogleSignInClient.getSignInIntent();
             // Start activity for result
             startActivityForResult(intent,100);
+            toast("hello");
         }
     }
 
@@ -103,6 +105,7 @@ public class LoginActivity extends AppCompatActivity {
                                         email = firebaseUser.getEmail();
                                         if(email.contains("@pccoepune.org")){
                                             requestuserdata(email);
+
                                         }
                                         else {
                                             signout();
@@ -182,8 +185,13 @@ public class LoginActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                signout();
+                Intent intent=mGoogleSignInClient.getSignInIntent();
+                // Start activity for result
+                startActivityForResult(intent,100);
                 toast("error");
+                signout();
+
+
             }
         }
         ) {
@@ -253,5 +261,14 @@ public class LoginActivity extends AppCompatActivity {
         queue.add(request);
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        if(firebaseUser==null)
+        {
+            email=firebaseUser.getEmail();
+            requestuserdata(email);
 
+        }
+    }
 }
