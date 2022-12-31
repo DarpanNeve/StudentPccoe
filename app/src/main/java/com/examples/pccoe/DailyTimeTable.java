@@ -67,7 +67,7 @@ public class DailyTimeTable extends Fragment {
         timetable.setLayoutManager(new LinearLayoutManager(getContext()));
         Search = requireView().findViewById(R.id.search);
         show=requireView().findViewById(R.id.show);
-        show.setVisibility(view.INVISIBLE);
+        show.setVisibility(View.INVISIBLE);
 
         Search.setOnClickListener(v -> {
             String selectday = Day.getSelectedItem().toString();
@@ -82,7 +82,7 @@ public class DailyTimeTable extends Fragment {
                     DailyDataAdapter adapters = new DailyDataAdapter(data);
                     timetable.setAdapter(adapters);
                     Toast.makeText(getContext(), "successful", Toast.LENGTH_SHORT).show();
-                    show.setVisibility(view.VISIBLE);
+                    show.setVisibility(View.VISIBLE);
                 }
                 else{
                     Toast.makeText(getContext(), "No Response Found", Toast.LENGTH_SHORT).show();
