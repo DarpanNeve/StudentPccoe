@@ -54,16 +54,28 @@
                 android:layout_weight="2"
                 android:contentDescription="@string/todo"
                 app:srcCompat="@drawable/ic_launcher_foreground"
-                />
+                tools:ignore="ImageContrastCheck" />
 
         </LinearLayout>
 
         <FrameLayout
             android:id="@+id/frameLayout2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="15"
             android:foregroundGravity="center"
-            app:layout_constraintBaseline_toTopOf="parent" />
+            app:layout_constraintBaseline_toTopOf="parent">
+
+        </FrameLayout>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:hapticFeedbackEnabled="true"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="10dp"
+            app:cardPreventCornerOverlap="true"/>
 
     </LinearLayout>
 

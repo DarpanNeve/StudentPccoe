@@ -31,6 +31,7 @@
             android:layout_weight="0.5"
             android:contentDescription="@string/todo"
             android:foregroundGravity="center"
+
             app:srcCompat="@drawable/pccoelogo"
             tools:ignore="ContentDescription,ImageContrastCheck" />
 
