@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorPrimaryVariant"
-    tools:context="com.examples.pccoe.MainActivity"
+    tools:context="com.Pccoe.Student.MainActivity"
     tools:ignore="HardcodedText"
    >
 

@@ -1,10 +1,7 @@
-package com.examples.pccoe;
-
-import static java.security.AccessController.getContext;
+package com.Pccoe.Student;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -18,7 +15,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -62,16 +58,17 @@ public class LoginActivity extends AppCompatActivity {
         firebaseUser=firebaseAuth.getCurrentUser();
         if(firebaseUser!=null)
         {
-            email=firebaseUser.getEmail();
-            requestuserdata1(email);
-
-
+            //email=firebaseUser.getEmail();
+            //requestuserdata1(email);
+            Intent myIntent = new Intent(LoginActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(myIntent);
+            finish();
         }
         else {
             Intent intent=mGoogleSignInClient.getSignInIntent();
             // Start activity for result
             startActivityForResult(intent,100);
-            toast("hello");
+
         }
     }
 
@@ -81,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         // Check condition
-        if(requestCode==100)
+        if(requestCode== 100)
         {
             Task<GoogleSignInAccount> signInAccountTask=GoogleSignIn
                     .getSignedInAccountFromIntent(data);
@@ -103,9 +100,15 @@ public class LoginActivity extends AppCompatActivity {
                                         // Redirect to profile activity
                                         FirebaseAuth auth = FirebaseAuth.getInstance();
                                         firebaseUser = auth.getCurrentUser();
+                                        assert firebaseUser != null;
                                         email = firebaseUser.getEmail();
-                                        if(email.contains("@pccoepune.org")){
-                                            requestuserdata(email);
+                                        assert email != null;
+                                       if(email.contains("@pccoepune.org")){
+                                          // requestuserdata(email);
+                                           Intent myIntent = new Intent(LoginActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                           startActivity(myIntent);
+                                           finish();
+
 
                                         }
                                         else {
@@ -116,7 +119,6 @@ public class LoginActivity extends AppCompatActivity {
                                             // Start activity for result
                                             startActivityForResult(intent,100);
                                             toast("Login with college email");
-
                                         }
 
                                     }
@@ -189,7 +191,7 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent=mGoogleSignInClient.getSignInIntent();
                 // Start activity for result
                 startActivityForResult(intent,100);
-                toast("error");
+                toast("Error");
                 signout();
 
 

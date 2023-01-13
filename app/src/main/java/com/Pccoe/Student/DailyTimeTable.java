@@ -1,4 +1,4 @@
-package com.examples.pccoe;
+package com.Pccoe.Student;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

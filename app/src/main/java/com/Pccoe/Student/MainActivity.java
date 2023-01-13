@@ -1,4 +1,4 @@
-package com.examples.pccoe;
+package com.Pccoe.Student;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;

@@ -1,4 +1,4 @@
-package com.examples.pccoe;
+package com.Pccoe.Student;
 
 public class NoticeModel {
     String name;

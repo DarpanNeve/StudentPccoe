@@ -1,5 +1,6 @@
-package com.examples.pccoe;
+package com.Pccoe.Student;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,16 +12,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class NoticeFragment extends Fragment {
     RecyclerView recyclerView;
     NoticeAdapter NoticeAdapter;
+    FirebaseMessaging FirebaseMessaging;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,10 +37,15 @@ public class NoticeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        recyclerView=getView().findViewById(R.id.recyclerView);
         try {
             FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-        } catch (Exception e) {}
+        }
+        catch (Exception e){
+
+        }
+        FirebaseMessaging.getInstance().subscribeToTopic("n");
+        recyclerView=getView().findViewById(R.id.recyclerView);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         FirebaseRecyclerOptions<NoticeModel> options
                 = new FirebaseRecyclerOptions.Builder<NoticeModel>()
@@ -49,8 +55,10 @@ public class NoticeFragment extends Fragment {
         recyclerView.setAdapter(NoticeAdapter);
 
 
+
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onStart() {
         super.onStart();
