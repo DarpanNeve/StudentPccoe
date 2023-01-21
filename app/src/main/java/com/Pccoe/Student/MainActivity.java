@@ -1,6 +1,8 @@
 package com.Pccoe.Student;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        checknotification();
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
         googleSignInClient = GoogleSignIn.getClient(MainActivity.this, GoogleSignInOptions.DEFAULT_SIGN_IN);
@@ -108,6 +111,17 @@ public class MainActivity extends AppCompatActivity {
             signout();
             toast("Signout successful");
         });
+    }
+
+
+    private void checknotification() {
+        Intent newMessageIntent = new Intent(this, Notification.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, newMessageIntent, PendingIntent.FLAG_MUTABLE);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        long interval = 60 * 1000; // 1 minute
+
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), interval, pendingIntent);
+
     }
 
     private void signout() {

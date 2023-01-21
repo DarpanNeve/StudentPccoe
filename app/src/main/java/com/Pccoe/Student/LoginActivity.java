@@ -1,6 +1,9 @@
 package com.Pccoe.Student;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -40,13 +43,15 @@ public class LoginActivity extends AppCompatActivity {
     GoogleSignInOptions googleSignInOptions;
     FirebaseUser firebaseUser;
     ImageView logo;
+    SharedPreferences sharedPreferences;
     String email,prn,rollno,branch,division;
     private final String url="http://181.215.79.82";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        logo=findViewById(R.id.Pccoe);
+        checknotification();
+        logo = findViewById(R.id.Pccoe);
         firebaseAuth = FirebaseAuth.getInstance();
         googleSignInOptions=new GoogleSignInOptions.Builder(
                 GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -63,24 +68,34 @@ public class LoginActivity extends AppCompatActivity {
             Intent myIntent = new Intent(LoginActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(myIntent);
             finish();
-        }
-        else {
-            Intent intent=mGoogleSignInClient.getSignInIntent();
+        } else {
+            Intent intent = mGoogleSignInClient.getSignInIntent();
             // Start activity for result
-            startActivityForResult(intent,100);
+            startActivityForResult(intent, 100);
 
         }
+
+
     }
 
+    private void checknotification() {
+        Intent newMessageIntent = new Intent(this, Notification.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 200, newMessageIntent, PendingIntent.FLAG_MUTABLE);
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        long interval = 60 * 1000; // 1 minute
+
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), interval, pendingIntent);
+
+    }
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         // Check condition
-        if(requestCode== 100)
-        {
-            Task<GoogleSignInAccount> signInAccountTask=GoogleSignIn
+        if (requestCode == 100) {
+            Task<GoogleSignInAccount> signInAccountTask = GoogleSignIn
                     .getSignedInAccountFromIntent(data);
             if(signInAccountTask.isSuccessful())
             {
@@ -163,15 +178,20 @@ public class LoginActivity extends AppCompatActivity {
                     // on below line passing our response to json object.
                     JSONArray jsonarray = new JSONArray(response);
                     JSONObject jsonObject = jsonarray.getJSONObject(0);
-                    rollno=jsonObject.getString("Roll No");
-                    prn=jsonObject.getString("Prn");
-                    division=jsonObject.getString("Division");
-                    branch=jsonObject.getString("Branch");
+                    rollno = jsonObject.getString("Roll No");
+                    prn = jsonObject.getString("Prn");
+                    division = jsonObject.getString("Division");
+                    branch = jsonObject.getString("Branch");
                     Intent myIntent = new Intent(LoginActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    myIntent.putExtra("rollno",rollno);
-                    myIntent.putExtra("prn",prn);
-                    myIntent.putExtra("branch",branch);
-                    myIntent.putExtra("division",division);
+                    myIntent.putExtra("rollno", rollno);
+                    myIntent.putExtra("prn", prn);
+                    myIntent.putExtra("branch", branch);
+                    myIntent.putExtra("division", division);
+                    /*sharedPreferences=getSharedPreferences("Details",MODE_PRIVATE);
+                    sharedPreferences.edit().putString("rollno",rollno).commit();
+                    sharedPreferences.edit().putString("prn",prn).commit();
+                    sharedPreferences.edit().putString("branch",branch).commit();
+                    sharedPreferences.edit().putString("division",division).commit();*/
                     startActivity(myIntent);
                     finish();
 
@@ -267,9 +287,10 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        if(firebaseUser==null)
-        {
-            email=firebaseUser.getEmail();
+        if(firebaseUser==null) {
+            FirebaseAuth auth = FirebaseAuth.getInstance();
+            firebaseUser = auth.getCurrentUser();
+            email = firebaseUser.getEmail();
             requestuserdata(email);
 
         }

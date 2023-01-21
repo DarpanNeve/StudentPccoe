@@ -5,10 +5,9 @@
     android:id="@+id/drawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorPrimaryVariant"
+    android:background="@drawable/background"
     tools:context="com.Pccoe.Student.MainActivity"
-    tools:ignore="HardcodedText"
-   >
+    tools:ignore="HardcodedText">
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -68,15 +67,6 @@
 
         </FrameLayout>
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:hapticFeedbackEnabled="true"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="10dp"
-            app:cardPreventCornerOverlap="true"/>
-
     </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView
@@ -85,10 +75,9 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:layout_marginStart="10dp"
-        android:background="?attr/colorPrimaryVariant"
+        android:background="@drawable/background"
         app:headerLayout="@layout/profile_sidebar"
-        app:menu="@menu/iconmenu"
-        >
+        app:menu="@menu/iconmenu">
 
     </com.google.android.material.navigation.NavigationView>
 

@@ -1,23 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    >
-    <item android:id="@+id/profile1"
-         android:title="@string/profile"
-        />
-    <item android:id="@+id/timetable1"
-        android:title="@string/timetable"
-        />
-    <item android:id="@+id/feedback"
-        android:title="@string/feedback"
-        />
-    <item android:id="@+id/notice"
-        android:title="Notice"
-        />
-    <item android:id="@+id/about"
-        android:title="@string/about"
-        />
-    <item android:id="@+id/logout1"
-        android:title="@string/logout"
-        />
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/profile1"
+        android:enabled="true"
+        android:title="@string/profile" />
+    <item
+        android:id="@+id/timetable1"
+        android:enabled="true"
+        android:title="@string/timetable" />
+    <item
+        android:id="@+id/feedback"
+        android:enabled="true"
+        android:title="@string/feedback" />
+    <item
+        android:id="@+id/notice"
+        android:enabled="true"
+        android:title="Notice" />
+    <item
+        android:id="@+id/about"
+        android:enabled="true"
+        android:title="@string/about" />
+    <item
+        android:id="@+id/logout1"
+        android:enabled="true"
+        android:title="@string/logout" />
 
 </menu>
