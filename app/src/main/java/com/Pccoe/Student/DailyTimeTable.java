@@ -36,7 +36,7 @@ public class DailyTimeTable extends Fragment {
     MainModel[] data;
     String user;
     LinearLayout show;
-    private final String url = "http://10.10.1.34";
+    private final String url = "http://117.198.136.16";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

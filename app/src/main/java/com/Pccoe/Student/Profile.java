@@ -26,7 +26,7 @@ public class Profile extends Fragment {
     GoogleSignInClient googleSignInClient;
     FirebaseAuth firebaseAuth;
     String email1,name1;
-    private final String url="http://181.215.79.82";
+    private final String url="http://117.198.136.16";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

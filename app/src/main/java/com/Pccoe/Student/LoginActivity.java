@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
     ImageView logo;
     SharedPreferences sharedPreferences;
     String email,prn,rollno,branch,division;
-    private final String url="http://181.215.79.82";
+    private final String url="http://117.198.136.16";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,11 +63,9 @@ public class LoginActivity extends AppCompatActivity {
         firebaseUser=firebaseAuth.getCurrentUser();
         if(firebaseUser!=null)
         {
-            //email=firebaseUser.getEmail();
-            //requestuserdata1(email);
-            Intent myIntent = new Intent(LoginActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(myIntent);
-            finish();
+            email=firebaseUser.getEmail();
+            requestuserdata1(email);
+
         } else {
             Intent intent = mGoogleSignInClient.getSignInIntent();
             // Start activity for result
@@ -119,10 +117,7 @@ public class LoginActivity extends AppCompatActivity {
                                         email = firebaseUser.getEmail();
                                         assert email != null;
                                        if(email.contains("@pccoepune.org")){
-                                          // requestuserdata(email);
-                                           Intent myIntent = new Intent(LoginActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                           startActivity(myIntent);
-                                           finish();
+                                          requestuserdata(email);
 
 
                                         }
