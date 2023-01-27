@@ -74,6 +74,7 @@ public class Profile extends Fragment {
             name1 = name1.toUpperCase();
             name.setText(name1);
 
+
         }
         // Initialize sign in client
         googleSignInClient = GoogleSignIn.getClient(requireContext(), GoogleSignInOptions.DEFAULT_SIGN_IN);
