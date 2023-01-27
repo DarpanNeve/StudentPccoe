@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context="com.Pccoe.Student.MainActivity"
-    tools:ignore="HardcodedText">
+    tools:context="com.Pccoe.Student.MainActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -16,56 +15,106 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:foregroundGravity="top"
-            android:gravity="top"
-            android:orientation="horizontal"
-            android:paddingTop="10dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:ignore="UselessParent">
 
-            <ImageView
-                android:id="@+id/sidebar"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:contentDescription="@string/todo"
-                app:srcCompat="@drawable/option" />
-
-            <TextView
-                android:id="@+id/heading"
+            <LinearLayout
+                android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif"
-                android:foregroundGravity="center"
-                android:gravity="start"
-                android:includeFontPadding="true"
-                android:minHeight="50dp"
-                android:textColor="?attr/colorOnSecondary"
-                android:textSize="30sp" />
+                android:foregroundGravity="top"
+                android:gravity="top"
+                android:orientation="horizontal"
+                android:paddingTop="10dp">
 
-            <ImageView
-                android:id="@+id/logout"
+                <ImageView
+                    android:id="@+id/sidebar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:contentDescription="@string/todo"
+                    app:srcCompat="@drawable/option" />
+
+                <TextView
+                    android:id="@+id/heading"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif"
+                    android:foregroundGravity="center"
+                    android:gravity="start"
+                    android:includeFontPadding="true"
+                    android:minHeight="50dp"
+                    android:textColor="?attr/colorOnSecondary"
+                    android:textSize="30sp" />
+
+                <ImageView
+                    android:id="@+id/logout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:contentDescription="@string/todo"
+                    app:srcCompat="@drawable/ic_launcher_foreground"
+                    tools:ignore="ImageContrastCheck" />
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/frameLayout2"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:contentDescription="@string/todo"
-                app:srcCompat="@drawable/ic_launcher_foreground"
-                tools:ignore="ImageContrastCheck" />
+                android:layout_height="0dp"
+                android:layout_weight="15"
+                android:foregroundGravity="center"
+                app:layout_constraintBaseline_toTopOf="parent">
 
+            </FrameLayout>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="#00FFFFFF"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#7DE4FF"
+                    android:orientation="horizontal"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="15dp">
+
+                    <ImageView
+                        android:id="@+id/bottomtimetable"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/todo"
+                        app:srcCompat="@drawable/timetableicon" />
+
+                    <ImageView
+                        android:id="@+id/bottomnotice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/todo"
+                        app:srcCompat="@drawable/noticeicon" />
+
+                    <ImageView
+                        android:id="@+id/bottomprofile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/todo"
+                        app:srcCompat="@drawable/profileicon"
+                        tools:ignore="ImageContrastCheck" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
         </LinearLayout>
-
-        <FrameLayout
-            android:id="@+id/frameLayout2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="15"
-            android:foregroundGravity="center"
-            app:layout_constraintBaseline_toTopOf="parent">
-
-        </FrameLayout>
 
     </LinearLayout>
 
@@ -77,7 +126,8 @@
         android:layout_marginStart="10dp"
         android:background="@drawable/background"
         app:headerLayout="@layout/profile_sidebar"
-        app:menu="@menu/iconmenu">
+        app:menu="@menu/iconmenu"
+        tools:ignore="VisualLintBounds">
 
     </com.google.android.material.navigation.NavigationView>
 

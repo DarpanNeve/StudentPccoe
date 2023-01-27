@@ -21,12 +21,11 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class Profile extends Fragment {
     View view;
-    TextView name,email,heading,rollno,prn,branch,division;
     ImageView photo;
     GoogleSignInClient googleSignInClient;
     FirebaseAuth firebaseAuth;
-    String email1,name1;
-    private final String url="http://117.198.136.16";
+    TextView name, email, heading, rollno, prn, branch, division;
+    String email1, name1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,22 +66,21 @@ public class Profile extends Fragment {
             Glide.with(requireContext()).load(firebaseUser.getPhotoUrl()).circleCrop().into(photo);
             // set name on text view
             email.setText(firebaseUser.getEmail());
-            email1=firebaseUser.getEmail();
+            email1 = firebaseUser.getEmail();
             assert email1 != null;
-            name1=email1.replace("."," ");
-            name1=name1.replace("@pccoepune org","");
-            name1 = name1.replaceAll("[0-9]","");
-            name1=name1.toUpperCase();
+            name1 = email1.replace(".", " ");
+            name1 = name1.replace("@pccoepune org", "");
+            name1 = name1.replaceAll("[0-9]", "");
+            name1 = name1.toUpperCase();
             name.setText(name1);
 
         }
         // Initialize sign in client
-        googleSignInClient= GoogleSignIn.getClient(requireContext(), GoogleSignInOptions.DEFAULT_SIGN_IN);
-        rollno.setText(getActivity().getIntent().getStringExtra("rollno"));
-        prn.setText(getActivity().getIntent().getStringExtra("prn"));
-        division.setText(getActivity().getIntent().getStringExtra("division"));
-        branch.setText(getActivity().getIntent().getStringExtra("branch"));
-
+        googleSignInClient = GoogleSignIn.getClient(requireContext(), GoogleSignInOptions.DEFAULT_SIGN_IN);
+        rollno.setText(requireActivity().getIntent().getStringExtra("rollno"));
+        prn.setText(requireActivity().getIntent().getStringExtra("prn"));
+        division.setText(requireActivity().getIntent().getStringExtra("division"));
+        branch.setText(requireActivity().getIntent().getStringExtra("branch"));
 
 
     }

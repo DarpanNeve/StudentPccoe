@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">Pccoe
-    Students</string>
+    <string name="app_name">Pccoe Students</string>
     <string name="todo">todo</string>
     <string name="search">Search</string>
     <string name="day">Day</string>

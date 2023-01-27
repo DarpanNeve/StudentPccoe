@@ -1,13 +1,12 @@
 package com.Pccoe.Student;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -37,6 +36,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+@SuppressWarnings("ALL")
 public class LoginActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     GoogleSignInClient mGoogleSignInClient;
@@ -46,24 +46,23 @@ public class LoginActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     String email,prn,rollno,branch,division;
     private final String url="http://117.198.136.16";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        checknotification();
         logo = findViewById(R.id.Pccoe);
         firebaseAuth = FirebaseAuth.getInstance();
-        googleSignInOptions=new GoogleSignInOptions.Builder(
+        googleSignInOptions = new GoogleSignInOptions.Builder(
                 GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken("873112653322-asbm6uhvint6h7n5tnkuh8bijmv13cvd.apps.googleusercontent.com")
                 .requestProfile()
                 .requestEmail()
                 .build();
-        mGoogleSignInClient= GoogleSignIn.getClient(this,googleSignInOptions);
-        firebaseUser=firebaseAuth.getCurrentUser();
-        if(firebaseUser!=null)
-        {
-            email=firebaseUser.getEmail();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
+        firebaseUser = firebaseAuth.getCurrentUser();
+        if (firebaseUser != null) {
+            email = firebaseUser.getEmail();
             requestuserdata1(email);
 
         } else {
@@ -76,17 +75,6 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void checknotification() {
-        Intent newMessageIntent = new Intent(this, Notification.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 200, newMessageIntent, PendingIntent.FLAG_MUTABLE);
-
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        long interval = 60 * 1000; // 1 minute
-
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), interval, pendingIntent);
-
-    }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -95,55 +83,47 @@ public class LoginActivity extends AppCompatActivity {
         if (requestCode == 100) {
             Task<GoogleSignInAccount> signInAccountTask = GoogleSignIn
                     .getSignedInAccountFromIntent(data);
-            if(signInAccountTask.isSuccessful())
-            {
+            if (signInAccountTask.isSuccessful()) {
                 try {
-                    GoogleSignInAccount googleSignInAccount=signInAccountTask
+                    GoogleSignInAccount googleSignInAccount = signInAccountTask
                             .getResult(ApiException.class);
-                    if(googleSignInAccount!=null)
-                    {
-                        AuthCredential authCredential= GoogleAuthProvider
+                    if (googleSignInAccount != null) {
+                        AuthCredential authCredential = GoogleAuthProvider
                                 .getCredential(googleSignInAccount.getIdToken()
-                                        ,null);
+                                        , null);
                         firebaseAuth.signInWithCredential(authCredential)
                                 .addOnCompleteListener(this, task -> {
                                     // Check condition
-                                    if(task.isSuccessful())
-                                    {   // When task is successful
+                                    if (task.isSuccessful()) {   // When task is successful
                                         // Redirect to profile activity
                                         FirebaseAuth auth = FirebaseAuth.getInstance();
                                         firebaseUser = auth.getCurrentUser();
                                         assert firebaseUser != null;
                                         email = firebaseUser.getEmail();
                                         assert email != null;
-                                       if(email.contains("@pccoepune.org")){
-                                          requestuserdata(email);
+                                        if (email.contains("@pccoepune.org")) {
+                                            requestuserdata(email);
 
 
-                                        }
-                                        else {
+                                        } else {
                                             signout();
                                             firebaseUser.delete();
-                                        //    user.delete();
-                                            Intent intent=mGoogleSignInClient.getSignInIntent();
+                                            //    user.delete();
+                                            Intent intent = mGoogleSignInClient.getSignInIntent();
                                             // Start activity for result
-                                            startActivityForResult(intent,100);
+                                            startActivityForResult(intent, 100);
                                             toast("Login with college email");
                                         }
 
-                                    }
-                                    else
-                                    {
+                                    } else {
                                         // When task is unsuccessful
                                         // Display Toast
-                                        toast("Authentication Failed :"+ Objects.requireNonNull(task.getException())
+                                        toast("Authentication Failed :" + Objects.requireNonNull(task.getException())
                                                 .getMessage());
                                     }
                                 });
                     }
-                }
-                catch (ApiException e)
-                {
+                } catch (ApiException e) {
                     e.printStackTrace();
                 }
             }
@@ -154,8 +134,7 @@ public class LoginActivity extends AppCompatActivity {
     private void signout() {
         GoogleSignInClient googleSignInClient= GoogleSignIn.getClient(LoginActivity.this, GoogleSignInOptions.DEFAULT_SIGN_IN);
         googleSignInClient.signOut().addOnCompleteListener(task -> {
-            if(task.isSuccessful())
-            {
+            if (task.isSuccessful()) {
                 firebaseAuth.signOut();
             }
         });
@@ -164,6 +143,7 @@ public class LoginActivity extends AppCompatActivity {
     private void toast(String s) {
         Toast.makeText(getApplicationContext(),s,Toast.LENGTH_SHORT).show();
     }
+
     private void requestuserdata(String sendemail) {
         StringRequest request = new StringRequest(Request.Method.POST, url+"/fetch_user.php", new Response.Listener<String>() {
             @Override
@@ -182,11 +162,6 @@ public class LoginActivity extends AppCompatActivity {
                     myIntent.putExtra("prn", prn);
                     myIntent.putExtra("branch", branch);
                     myIntent.putExtra("division", division);
-                    /*sharedPreferences=getSharedPreferences("Details",MODE_PRIVATE);
-                    sharedPreferences.edit().putString("rollno",rollno).commit();
-                    sharedPreferences.edit().putString("prn",prn).commit();
-                    sharedPreferences.edit().putString("branch",branch).commit();
-                    sharedPreferences.edit().putString("division",division).commit();*/
                     startActivity(myIntent);
                     finish();
 
@@ -213,7 +188,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
         ) {
-            @Nullable
+            @NonNull
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> param = new HashMap<>();
@@ -224,6 +199,7 @@ public class LoginActivity extends AppCompatActivity {
         RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
         queue.add(request);
     }
+
     private void requestuserdata1(String sendemail) {
         StringRequest request = new StringRequest(Request.Method.POST, url+"/fetch_user.php", new Response.Listener<String>() {
             @Override
@@ -267,7 +243,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
         ) {
-            @Nullable
+            @NonNull
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> param = new HashMap<>();
@@ -285,6 +261,7 @@ public class LoginActivity extends AppCompatActivity {
         if(firebaseUser==null) {
             FirebaseAuth auth = FirebaseAuth.getInstance();
             firebaseUser = auth.getCurrentUser();
+            assert firebaseUser != null;
             email = firebaseUser.getEmail();
             requestuserdata(email);
 

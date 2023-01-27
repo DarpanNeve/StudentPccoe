@@ -20,6 +20,7 @@ public class NoticeFragment extends Fragment {
     RecyclerView recyclerView;
     NoticeAdapter NoticeAdapter;
     FirebaseMessaging FirebaseMessaging;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,11 +38,10 @@ public class NoticeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         try {
             FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        catch (Exception e){
-
-        }
-        recyclerView=getView().findViewById(R.id.recyclerView);
+        recyclerView = requireActivity().findViewById(R.id.recyclerView);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         FirebaseRecyclerOptions<NoticeModel> options

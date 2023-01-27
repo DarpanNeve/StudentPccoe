@@ -1,8 +1,6 @@
 package com.Pccoe.Student;
 
 import android.annotation.SuppressLint;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -28,8 +26,9 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+@SuppressWarnings("ALL")
 public class MainActivity extends AppCompatActivity {
-    ImageView logout, sidephoto, sidebar;
+    ImageView logout, sidephoto, sidebar, bottomprofile, bottomnotice, bottomtimtable;
     GoogleSignInClient googleSignInClient;
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
@@ -41,13 +40,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        checknotification();
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
         googleSignInClient = GoogleSignIn.getClient(MainActivity.this, GoogleSignInOptions.DEFAULT_SIGN_IN);
-
-
         replaceFragment(new Profile());
+        bottomnotice = findViewById(R.id.bottomnotice);
+        bottomprofile = findViewById(R.id.bottomprofile);
+        bottomtimtable = findViewById(R.id.bottomtimetable);
+
+
         navbar = findViewById(R.id.navbar);
         drawer = findViewById(R.id.drawer);
 
@@ -104,25 +105,28 @@ public class MainActivity extends AppCompatActivity {
             // set name on text view
             sidename.setText(firebaseUser.getDisplayName());
         }
-
-
-        logout.setOnClickListener(view -> {
-            // Sign out from google
-            signout();
-            toast("Signout successful");
+        bottomtimtable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replaceFragment(new DailyTimeTable());
+            }
         });
+        bottomprofile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replaceFragment(new Profile());
+            }
+        });
+        bottomnotice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replaceFragment(new NoticeFragment());
+            }
+        });
+
+
     }
 
-
-    private void checknotification() {
-        Intent newMessageIntent = new Intent(this, Notification.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, newMessageIntent, PendingIntent.FLAG_MUTABLE);
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        long interval = 60 * 1000; // 1 minute
-
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), interval, pendingIntent);
-
-    }
 
     private void signout() {
         googleSignInClient.signOut().addOnCompleteListener(task -> {
